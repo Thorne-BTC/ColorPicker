@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ColorPicker - Pick Colors Like a Pro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ColorPicker</h1>
+            <p>Professional Color Selection Tool</p>
+        </header>
+        
+        <main class="color-picker-container">
+            <div class="picker-section">
+                <input type="color" id="colorInput" value="#3498db">
+                <div class="color-display" id="colorDisplay"></div>
+            </div>
+            
+            <div class="color-info">
+                <div class="format-group">
+                    <label>HEX:</label>
+                    <input type="text" id="hexValue" readonly>
+                </div>
+                <div class="format-group">
+                    <label>RGB:</label>
+                    <input type="text" id="rgbValue" readonly>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
