@@ -61,6 +61,36 @@ document.addEventListener('DOMContentLoaded', function() {
         updateColorInfo(e.target.value);
     });
 
+    // Copy functionality
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const format = this.dataset.copy;
+            let textToCopy = '';
+            
+            switch(format) {
+                case 'hex':
+                    textToCopy = hexValue.value;
+                    break;
+                case 'rgb':
+                    textToCopy = rgbValue.value;
+                    break;
+                case 'hsl':
+                    textToCopy = hslValue.value;
+                    break;
+            }
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                this.textContent = 'Copied!';
+                this.classList.add('copied');
+                
+                setTimeout(() => {
+                    this.textContent = 'Copy';
+                    this.classList.remove('copied');
+                }, 1500);
+            });
+        });
+    });
+
     // Initialize with default color
     updateColorInfo(colorInput.value);
 });
