@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const hexValue = document.getElementById('hexValue');
     const rgbValue = document.getElementById('rgbValue');
     const hslValue = document.getElementById('hslValue');
+    const historyColors = document.getElementById('historyColors');
+    const clearHistory = document.getElementById('clearHistory');
+    
+    let colorHistory = JSON.parse(localStorage.getItem('colorHistory')) || [];
 
     function hexToRgb(hex) {
         const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -57,8 +61,35 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function addToHistory(color) {
+        if (!colorHistory.includes(color)) {
+            colorHistory.unshift(color);
+            if (colorHistory.length > 15) {
+                colorHistory.pop();
+            }
+            localStorage.setItem('colorHistory', JSON.stringify(colorHistory));
+            renderHistory();
+        }
+    }
+
+    function renderHistory() {
+        historyColors.innerHTML = '';
+        colorHistory.forEach(color => {
+            const colorDiv = document.createElement('div');
+            colorDiv.className = 'history-color';
+            colorDiv.style.backgroundColor = color;
+            colorDiv.title = color;
+            colorDiv.addEventListener('click', () => {
+                colorInput.value = color;
+                updateColorInfo(color);
+            });
+            historyColors.appendChild(colorDiv);
+        });
+    }
+
     colorInput.addEventListener('input', function(e) {
         updateColorInfo(e.target.value);
+        addToHistory(e.target.value);
     });
 
     // Copy functionality
@@ -91,6 +122,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Initialize with default color
+    // Clear history functionality
+    clearHistory.addEventListener('click', function() {
+        colorHistory = [];
+        localStorage.removeItem('colorHistory');
+        renderHistory();
+    });
+
+    // Initialize with default color and load history
     updateColorInfo(colorInput.value);
+    renderHistory();
 });
