@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const hslValue = document.getElementById('hslValue');
     const historyColors = document.getElementById('historyColors');
     const clearHistory = document.getElementById('clearHistory');
+    const randomColor = document.getElementById('randomColor');
     
     let colorHistory = JSON.parse(localStorage.getItem('colorHistory')) || [];
 
@@ -87,6 +88,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function generateRandomColor() {
+        const r = Math.floor(Math.random() * 256);
+        const g = Math.floor(Math.random() * 256);
+        const b = Math.floor(Math.random() * 256);
+        return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+    }
+
     colorInput.addEventListener('input', function(e) {
         updateColorInfo(e.target.value);
         addToHistory(e.target.value);
@@ -120,6 +128,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 1500);
             });
         });
+    });
+
+    // Random color functionality
+    randomColor.addEventListener('click', function() {
+        const newColor = generateRandomColor();
+        colorInput.value = newColor;
+        updateColorInfo(newColor);
+        addToHistory(newColor);
     });
 
     // Clear history functionality

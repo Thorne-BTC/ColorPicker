@@ -44,6 +44,22 @@ header p {
     margin-bottom: 2rem;
 }
 
+.random-btn {
+    padding: 1rem 1.5rem;
+    background: #9b59b6;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.random-btn:hover {
+    background: #8e44ad;
+}
+
 #colorInput {
     width: 100px;
     height: 100px;
